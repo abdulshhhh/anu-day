@@ -44,7 +44,7 @@ function CelebrationPage({ onComplete, musicPlayerRef }) {
     },
     {
       icon: "✨",
-      text: "Have a look at it, Madam Jiii",
+      text: "Have a look at it, kuttachi",
       type: "announcement",
     },
   ];
@@ -389,7 +389,7 @@ function CelebrationPage({ onComplete, musicPlayerRef }) {
                   data-button="message"
                   onClick={() => handleButtonClick("message")}
                 >
-                  💌 Well, I Have a Message for You Madam Ji
+                  💌 Final ahh oru sweet sweet message
                 </button>
               )}
             </div>
@@ -418,20 +418,11 @@ function CelebrationPage({ onComplete, musicPlayerRef }) {
               <div className="decoration-decorate bunting">
                 <div className="bunting-string">
                   {[
-                    "H",
-                    "a",
-                    "p",
-                    "p",
-                    "y",
-                    " ",
-                    "B",
-                    "i",
-                    "r",
-                    "t",
-                    "h",
-                    "d",
-                    "a",
-                    "y",
+                    "a", "n", "u", " ",
+                    "i", "s", "v", "a", "r", "y", "a", " ",
+                    "A", " ",
+                    "l", "o", "o", "s", "u", " ",
+                    "p", "a", "i", "t", "h", "i", "y", "a", "m"
                   ].map((letter, i) => (
                     <div key={i} className={`bunting-flag flag-${i % 3}`}>
                       {letter}

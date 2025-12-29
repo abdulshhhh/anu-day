@@ -13,19 +13,25 @@ function MessageCard({ isActive }) {
   const curtainHintRef = useRef(null);
   const messageContentRef = useRef(null);
 
-  const message = `[Recipient Name],
+  const message = `Happy Birthday Anu Isvarya A 🎂
 
-Your personalized birthday message goes here.
+Innum oru varusham  konjo growth, konjam clarity, konjam new memories.
+Nee irukkura way-la oru quiet warmth irukku. Romba sathamaa illama, romba showoff illama, but presence-oda irukkura type. Anniyaayathukku rare peice nee laam.
 
-You can write multiple paragraphs to express your feelings,
-share memories, and make this special day even more memorable.
+Sometimes nee konjam loosu maadhiri nadandhaalum 😌, adhu un innocence-um honesty-yum kaattudhu. Nee paathukura vidham, introverted way, and sila moments-la silent-aa support pannra quality — adhellam romba appreciate panna vendiya vishayam.
 
-This template supports multiple lines and formatting,
-so feel free to customize it completely to fit your style.
+Indha varusham unakku mass aa pogum. naa thaan inter poren laa 😪😪
+Manasu light-aa irukkanum, stress kammi aaganum,
+nee worth-aa irukkra ellaa nalladhu-vum unna thedi varanum. aprm innum 1 year tha next year la laam college khatam khatam
 
-Happy Birthday! 🎉
+Life eppadi maari ponaalum, sila relationships constant-aa irukkum
+apdi ponaa romba sondosham. Sirippukku, rant-kku, ellaathukum complete package nee.
 
-— [Your Name]`;
+Enjoy your day, take it easy, and laugh  (athan sollave theva illaye) 🙂
+
+Happy Birthdayyayayayyayayayayyyyyy, Anuuuu 🎉
+
+— Your Best Friend` ;
 
   // Handle page transitions
   useEffect(() => {
@@ -170,7 +176,7 @@ Happy Birthday! 🎉
 
   return (
     <section className="message">
-      <h2>💌 A Message From My Heart</h2>
+      <h2> 🐒🐒🐒🐒</h2>
 
       <div className="curtain-container">
         <div className="curtain-rod"></div>

@@ -10,13 +10,21 @@ function Gallery({ isActive }) {
   const photosRef = useRef([]);
   const lightboxImgRef = useRef(null);
 
-  const photos = [
-    { src: "/images/pic1.jpeg", alt: "Memory 1" },
-    { src: "/images/pic2.jpeg", alt: "Memory 2" },
-    { src: "/images/pic3.jpeg", alt: "Memory 3" },
-    { src: "/images/pic4.jpeg", alt: "Memory 4" },
-    { src: "/images/pic5.jpeg", alt: "Memory 5" },
-    { src: "/images/pic6.jpeg", alt: "Memory 6" },
+  // ...existing code...
+  // Special gallery with all uploaded images and videos
+  const galleryItems = [
+    { src: "/images/WhatsApp Image 2025-12-29 at 9.32.37 PM (1).jpeg", alt: "Birthday Memory 1", type: "image" },
+    { src: "/images/WhatsApp Image 2025-12-29 at 9.32.37 PM.jpeg", alt: "Birthday Memory 2", type: "image" },
+    { src: "/images/WhatsApp Image 2025-12-29 at 9.32.30 PM (1).jpeg", alt: "Birthday Memory 3", type: "image" },
+    { src: "/images/WhatsApp Image 2025-12-29 at 9.32.30 PM.jpeg", alt: "Birthday Memory 4", type: "image" },
+    { src: "/images/WhatsApp Image 2025-12-29 at 9.32.34 PM.jpeg", alt: "Birthday Memory 5", type: "image" },
+    { src: "/images/WhatsApp Image 2025-12-29 at 9.32.35 PM (1).jpeg", alt: "Birthday Memory 6", type: "image" },
+    { src: "/images/WhatsApp Image 2025-12-29 at 9.32.35 PM (2).jpeg", alt: "Birthday Memory 7", type: "image" },
+    { src: "/images/WhatsApp Image 2025-12-29 at 9.32.35 PM.jpeg", alt: "Birthday Memory 8", type: "image" },
+    { src: "/images/WhatsApp Image 2025-12-29 at 9.32.36 PM (1).jpeg", alt: "Birthday Memory 9", type: "image" },
+    { src: "/images/WhatsApp Image 2025-12-29 at 9.32.36 PM.jpeg", alt: "Birthday Memory 10", type: "image" },
+    { src: "/images/WhatsApp Video 2025-12-29 at 9.32.34 PM.mp4", alt: "Birthday Video 1", type: "video" },
+    { src: "/images/WhatsApp Video 2025-12-29 at 9.32.35 PM.mp4", alt: "Birthday Video 2", type: "video" },
   ];
 
   // Reveal photos with GSAP when page becomes active
@@ -77,7 +85,7 @@ function Gallery({ isActive }) {
   }, [lightboxOpen]);
 
   const showNext = useCallback(() => {
-    const newIndex = (currentIndex + 1) % photos.length;
+    const newIndex = (currentIndex + 1) % galleryItems.length;
 
     // Animate transition
     if (lightboxImgRef.current) {
@@ -96,10 +104,10 @@ function Gallery({ isActive }) {
         },
       });
     }
-  }, [currentIndex, photos.length]);
+  }, [currentIndex, galleryItems.length]);
 
   const showPrev = useCallback(() => {
-    const newIndex = (currentIndex - 1 + photos.length) % photos.length;
+    const newIndex = (currentIndex - 1 + galleryItems.length) % galleryItems.length;
 
     // Animate transition
     if (lightboxImgRef.current) {
@@ -118,7 +126,7 @@ function Gallery({ isActive }) {
         },
       });
     }
-  }, [currentIndex, photos.length]);
+  }, [currentIndex, galleryItems.length]);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -138,29 +146,26 @@ function Gallery({ isActive }) {
   }, [lightboxOpen, showNext, showPrev, closeLightbox]);
 
   return (
-    <section className="gallery">
-      <h2>📸 Our Beautiful Memories</h2>
-      <div className="photos">
-        {photos.map((photo, index) => (
-          <img
-            key={index}
-            ref={(el) => (photosRef.current[index] = el)}
-            src={photo.src}
-            alt={photo.alt}
-            onClick={() => openLightbox(index)}
-            loading="lazy"
-          />
-        ))}
-      </div>
-
+    <>
       {lightboxOpen && (
         <div className="lightbox" onClick={closeLightbox}>
-          <img
-            ref={lightboxImgRef}
-            src={photos[currentIndex].src}
-            alt={photos[currentIndex].alt}
-            onClick={(e) => e.stopPropagation()}
-          />
+          {galleryItems[currentIndex].type === "image" ? (
+            <img
+              ref={lightboxImgRef}
+              src={galleryItems[currentIndex].src}
+              alt={galleryItems[currentIndex].alt}
+              onClick={e => e.stopPropagation()}
+            />
+          ) : (
+            <video
+              ref={lightboxImgRef}
+              src={galleryItems[currentIndex].src}
+              controls
+              autoPlay
+              style={{ maxWidth: "90vw", maxHeight: "80vh" }}
+              onClick={e => e.stopPropagation()}
+            />
+          )}
           <button
             className="lightbox-close"
             onClick={closeLightbox}
@@ -170,27 +175,104 @@ function Gallery({ isActive }) {
           </button>
           <button
             className="nav-btn nav-prev"
-            onClick={(e) => {
+            onClick={e => {
               e.stopPropagation();
               showPrev();
             }}
-            aria-label="Previous photo"
+            aria-label="Previous"
           >
             ‹
           </button>
           <button
             className="nav-btn nav-next"
-            onClick={(e) => {
+            onClick={e => {
               e.stopPropagation();
               showNext();
             }}
-            aria-label="Next photo"
+            aria-label="Next"
+          >
+            ›
+          </button>
+        </div>
+      )}
+      <section className="gallery">
+      <h2>🎉 Our Beautiful Memories</h2>
+      <div className="photos">
+        {galleryItems.map((item, index) => (
+          item.type === "image" ? (
+            <img
+              key={index}
+              ref={el => (photosRef.current[index] = el)}
+              src={item.src}
+              alt={item.alt}
+              onClick={() => openLightbox(index)}
+              loading="lazy"
+              className="special-photo"
+            />
+          ) : (
+            <div
+              key={index}
+              ref={el => (photosRef.current[index] = el)}
+              className="video-thumb"
+              onClick={() => openLightbox(index)}
+              style={{ cursor: "pointer" }}
+            >
+              <video src={item.src} style={{ width: "100%", borderRadius: "12px" }} />
+              <span className="video-label">🎬 {item.alt}</span>
+            </div>
+          )
+        ))}
+      </div>
+      {lightboxOpen && (
+        <div className="lightbox" onClick={closeLightbox}>
+          {galleryItems[currentIndex].type === "image" ? (
+            <img
+              ref={lightboxImgRef}
+              src={galleryItems[currentIndex].src}
+              alt={galleryItems[currentIndex].alt}
+              onClick={e => e.stopPropagation()}
+            />
+          ) : (
+            <video
+              ref={lightboxImgRef}
+              src={galleryItems[currentIndex].src}
+              controls
+              autoPlay
+              style={{ maxWidth: "90vw", maxHeight: "80vh" }}
+              onClick={e => e.stopPropagation()}
+            />
+          )}
+          <button
+            className="lightbox-close"
+            onClick={closeLightbox}
+            aria-label="Close lightbox"
+          >
+            ✖
+          </button>
+          <button
+            className="nav-btn nav-prev"
+            onClick={e => {
+              e.stopPropagation();
+              showPrev();
+            }}
+            aria-label="Previous"
+          >
+            ‹
+          </button>
+          <button
+            className="nav-btn nav-next"
+            onClick={e => {
+              e.stopPropagation();
+              showNext();
+            }}
+            aria-label="Next"
           >
             ›
           </button>
         </div>
       )}
     </section>
+    </>
   );
 }
 
